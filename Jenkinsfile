@@ -3,7 +3,7 @@ pipeline  {
   agent any 
 
   environment {
-      IMAGE_NAME = "karanprajapati/dev-pro:v1"
+      IMAGE_NAME = "karanprajapati/dev-pro"
        }
   
   stages {
@@ -17,7 +17,7 @@ pipeline  {
     
      stage('Build Docker Image') {
        steps {
-         sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER .'
+         sh "docker build -t ${DOCKER_IMAGE}:v1-${BUILD_NUMBER} ."
           }
       }
     
@@ -32,7 +32,7 @@ pipeline  {
             
             sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER  --password-stdin'
             
-            sh 'docker push $IMAGE_NAME:$BUILD_NUMBER'
+            sh 'docker push $IMAGE_NAME:v1-$BUILD_NUMBER'
 
        }
      }
