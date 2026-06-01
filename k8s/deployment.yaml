@@ -21,7 +21,8 @@ spec:
     spec: 
       containers:
       - name: dev-pro
-        image: karanprajapati/dev-pro
+        image: karanprajapati/dev-pro:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 

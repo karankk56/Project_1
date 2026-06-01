@@ -11,5 +11,8 @@
     - name: Apply Kubernetes Services
       command: kubectl apply -f ../k8s/service.yaml
 
+    - name: Restart Deployment
+      command: kubectl rollout restart deployment/dev-pro
+
 
 

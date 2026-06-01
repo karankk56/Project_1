@@ -11,13 +11,13 @@ pipeline  {
       
        steps {
             git branch: 'main',
-           url: 'https://github.com/karankk56/Project_1.git'
-           }
+                url: 'https://github.com/karankk56/Project_1.git'
+            }
          }
     
      stage('Build Docker Image') {
        steps {
-         sh "docker build -t ${DOCKER_IMAGE} ."
+            sh "docker build -t $IMAGE_NAME:latest ."
           }
       }
     
@@ -32,21 +32,13 @@ pipeline  {
             
             sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER  --password-stdin'
             
-            sh 'docker push $IMAGE_NAME'
+            sh 'docker push $IMAGE_NAME:latest'
 
        }
      }
    }
         
-      stage('Update Kubernetes Deployment') {
-       
-         steps{ 
-             sh '''
-               sed -i "s|image:.*|image: $IMAGE_NAME|g" k8s/deployment.yaml
-               '''
 
-             }
-          }
 
       stage('Deploy using Ansible'){
          steps{ 
