@@ -17,7 +17,7 @@ pipeline  {
     
      stage('Build Docker Image') {
        steps {
-         sh "docker build -t ${DOCKER_IMAGE}:v1-${BUILD_NUMBER} ."
+         sh "docker build -t ${DOCKER_IMAGE} ."
           }
       }
     
@@ -32,7 +32,7 @@ pipeline  {
             
             sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER  --password-stdin'
             
-            sh 'docker push $IMAGE_NAME:v1-$BUILD_NUMBER'
+            sh 'docker push $IMAGE_NAME'
 
        }
      }
@@ -42,7 +42,7 @@ pipeline  {
        
          steps{ 
              sh '''
-               sed -i "s|image:.*|image: $IMAGE_NAME:$BUILD_NUMBER|g" k8s/deployment.yaml
+               sed -i "s|image:.*|image: $IMAGE_NAME|g" k8s/deployment.yaml
                '''
 
              }
