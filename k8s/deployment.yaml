@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata: 
+  name: dev-pro
+
+spec: 
+  replicas: 2
+  
+
+  selector: 
+    matchLabels:
+      app: dev-pro
+
+
+  template: 
+    metadata: 
+      labels:
+        app: dev-pro
+
+    spec: 
+      containers:
+      - name: dev-pro
+        image: karanprajapati/dev-pro:v1
+        ports:
+        - containerPort: 80
+
+  
